@@ -1093,151 +1093,136 @@ var listaProdutos = [
     }
 ]
 
-
-// 1- Quantidade total de itens em estoque (somatória das quantidades de todos os produtos)
-
-var res =listaProdutos.map(listaProdutos => listaProdutos.qtdEstoque).reduce((aacc, listaProdutos) => listaProdutos + aacc);
-
-console.log(res)
-
-var soma = listaProdutos.reduce((sum, qtd) => {
-    return sum+qtd.qtdEstoque;
-}, 0);
- 
-console.log("total de itens em estoque:" + soma)
-
 function exercicio1(){
-    var total =0;
-
+    var total=0;
     for(i=0; i<listaProdutos.length; i++){
         let produto = listaProdutos[i];
         total = total + produto.qtdEstoque;
     }
-console.log("Total de produtos em estoque = "+total);
-}
-
-// 2- Quantidade total de itens em destaque (somatória das quantidades dos itens marcados como "emDestaque : sim")
-
-const isEmDestaque = listaProdutos => listaProdutos.emDestaque === 'sim';
-const destaque = listaProdutos.filter(isEmDestaque);
-
-var somaa = destaque.reduce((sum, qtd) => {
-        return sum+qtd.qtdEstoque;
-}, 0);
-
-console.log("Quantidade total de itens em destaque:" + somaa)
-
-function exercicio2(){
-    let totalEmDestaque = 0;
-    for(i=0; i <listaProdutos.length; i++) {
-        let produto = listaProdutos[i];
-        if (produto.emDestaque == "sim"){
-            totalEmDestaque = totalEmDestaque + produto.qtdEstoque; 
-        }
-    }
-console.log("Quantidade total de itens em destaque: " + totalEmDestaque);
-}
-
-// 3- Quantidade total de itens disponíveis (similar ao anterior)
-
-const disponivel = listaProdutos => listaProdutos.disponivel === 'sim';
-const disponivel1 = listaProdutos.filter(disponivel);
-
-var somaaa = disponivel1.reduce((sum, qtd) => {
-        return sum+qtd.qtdEstoque;
-}, 0);
-
-console.log("Quantidade total de itens disponíveis:" + somaaa)
-
-// 4- Quantidade de itens disponíveis e em destaque
-
-console.log("Quantidade de itens disponíveis e em destaque:" + (somaa + somaaa))
-
-function exercicio4(){
-    let totalInvetario = 0;
+    console.log("total de produtos em estoque = "+total);
+  
+  }
+  
+  function exercicio2() {
+    var total = 0
     for (i = 0; i < listaProdutos.length; i++) {
-        let produto = listaProdutos[i];
-        totalInventario = total + produto.qtdEstoque * produto.preco;
+      let Produto = listaProdutos[i]
+      if (Produto.emDestaque == 'sim') {
+        total = total + Produto.qtdEstoque
+      }
     }
-    console.log("Quantidade de itens disponíveis e em destaque: "+totalInvetario)
-}
-
-
-// 5- Valor total do inventário da empresa (somatória dos valores individuais multiplicado pela quantidade em estoque - considere apenas os produtos “EM ESTOQUE”)
-
-// maneira 1
-
-const inventarioEmpresa = listaProdutos => listaProdutos.qtdEstoque > 0;
-const inventarioEmpresa1 = listaProdutos.filter(inventarioEmpresa);
-
-var totalInventario = inventarioEmpresa1.reduce((sum, qtd) => {
-    return sum+qtd.qtdEstoque;
-}, 0);
-
-var totalValor = inventarioEmpresa1.reduce((sum, qtd) => {
-    return sum+qtd.preco;
-}, 0);
-
-console.log(totalValor * totalInventario)
-
-console.log(totalValor)
-console.log(totalInventario)
-
-valTotal = totalValor * totalInventario
-
-console.log("Valor total do inventário da empresa:" + valTotal.toFixed(2))
-
-// maneira 2
-
-
-
-// 6- Produto mais caro da loja (bem como seu departamento - considere apenas o preço dele)
-
-var meuArray= [0,12,13,2,1273,28,1];
-var maior = Math.max.apply(null, meuArray );
-
-let produtoMaisCaro = listaProdutos[0];
-    for (i=1; i<listaProdutos.length; i++){
-        // aqui preciso comparar o preço de cada produto da lista com este produto de referência
-        // se eu achar um produto + caro, o que eu devo fazer? Tornar este produto a nova referência
+    console.log('Quantidade total de itens em destaque:' + total)
+  }
+  
+  function exercicio3(){
+  
+    var total = 0;
+    for(i = 0; i<listaProdutos.length; i++){
         let produto = listaProdutos[i];
-        if (produto.preco > produtoMaisCaro.preco){
-            produtoMaisCaro = produto;
+        if (produto.disponivel =="sim" ){
+        total += produto.qtdEstoque;
+        }
+  
+    }
+  
+  console.log("total de produtos disponiveis =" + total)
+  
+  
+  }
+  
+  function exercicio4() {
+    var total = 0
+  
+    for (i = 0; i < listaProdutos.length; i++) {
+      let produto = listaProdutos[i]
+  
+      if (produto.emDestaque == 'sim' && produto.disponivel == 'sim') {
+        total += produto.qtdEstoque
+      }
+    }
+    console.log(
+      'total de produtos em estoque disponíveis e em destaque =' + total
+    )
+  }
+  function exercicio5() {
+    var contador = 0
+    for (i = 0; i < listaProdutos.length; i++) {
+      let produto = listaProdutos[i]
+      let conta = produto.preco * produto.qtdEstoque
+      contador = contador + conta
+    }
+    console.log('valor total do meu inventario e de ' + contador)
+  }
+  
+  function exercicio6() {
+    var ProdutoMaisCaro = listaProdutos[0]
+    for (i = 0; i < listaProdutos.length; i++) {
+      produto = listaProdutos[i]
+      if (produto.preco > ProdutoMaisCaro.preco) {
+        ProdutoMaisCaro = produto
+      }
+    }
+    console.log(
+      'O produto mais caro da loja � o ' +
+        ProdutoMaisCaro.descricao +
+        ' cujo pre�o � de R$' +
+        ProdutoMaisCaro.preco
+    )
+    console.log(
+      'Departamento ID:' +
+        ProdutoMaisCaro.departamento.idDepto +
+        ', Departamento nome:' +
+        ProdutoMaisCaro.departamento.nomeDepto
+    )
+  }
+  
+  
+  function exercicio7(){
+    var Prodbarato = listaProdutos[0];
+    for(i= 1; i < listaProdutos.length; i++){
+        produto = listaProdutos[i];
+        if(produto.preco < Prodbarato.preco){
+            Prodbarato = produto;
         }
     }
-    console.log("Produto mais caro da empresa é o  "+produtoMaisCaro.descricao+ " cujo preço é R$ "+produtoMaisCaro.preco);
-
-
-var maior = Math.max.apply(listaProdutos => listaProdutos.preco);
-console.log(maior + "nananan")
-
-
-
-// print tabela full  
-
-// console.table(listaProdutos)
-
-// 7- Produto mais barato da loja (bem como seu departamento - considere apenas o preço dele) 
-
-// 8- Produto de estoque mais valioso (considere o preço multiplicado pela quantidade e também apenas EM ESTOQUE)
-
-    function exercicio8(){
+    console.log("produto mais em conta é : "+Prodbarato.descricao+" valor : R$"
+    +Prodbarato.preco );
+    console.log("Departamento ID:"+Prodbarato.departamento.idDepto +", Departamento nome:"+ Prodbarato.departamento.nomeDepto)
+  }
+  
+  function exercicio8(){
     var maisVal = listaProdutos[0];
     for (i=1; i<listaProdutos.length; i++){
         maisVal.preco*maisVal.qtdEstoque<listaProdutos[1].preco*listaProdutos[1].qtdEstoque?maisval=listaProdutos[i]:maisVal
     }
     console.log("Produto de estoque mais valioso " +maisval.descricao + "como o estoque no valor de " + (maisval.preco*maisval.qtdEstoque).toFixed(2))
     }
-
-
-// 9- Produto em estoque menos valioso (considere o preço multiplicado pela quantidade e também apenas EM ESTOQUE)
-// 10- Valor do ticket médio dos produtos da empresa (basicamente o valor total do inventário dividido pelo número de itens - considere TODOS os produtos, porém considere apenas 1 exemplar por produto)
-
-
-// 11- Somatória de itens por departamento (você deverá retornar um objeto contendo o nome do departamento e o total de itens nele - Novamente considere os produtos “EM ESTOQUE” - e é apenas a somatória da quantidade de itens)
-// 12- Valor total do inventário por departamento (similar ao item anterior - considere TODOS os produtos)
-// 13- Ticket médio por departamento (similar ao item anterior, porém retornando uma lista de objetos que contenha o nome do departamento e o seu ticket médio). Este é um exercícios difícil, porém é descomplicado de ser realizado tendo claro as demais saídas até então. Verifique a possibilidade de reutilizar parte da programação ou sua lógica trabalhada.
-// 14- Departamento mais valioso (qual o departamento que tem a maior somatória dos valores dos itens - Considere todos os departamentos)
-// 15- Departamento menos valioso (similar ao anterior)
-
-
+  
+  function exercicio9() {
+    let estoqueMaisBarato = listaProdutos[0]
+    for (i = 1; i < listaProdutos.length; i++) {
+      let produto = listaProdutos[i]
+      if (produto.qtdEstoque > 0) {
+        if (
+          produto.preco * produto.qtdEstoque <
+          estoqueMaisBarato.preco * estoqueMaisBarato.qtdEstoque
+        ) {
+          estoqueMaisBarato = produto
+        }
+      }
+    }
+    console.log(' O estoque mais barato é do produto ')
+  }
+  
+  function exercicio10() {
+    var tmp = 0
+    for (i = 0; i < listaProdutos.length; i++) {
+      let produto = listaProdutos[i]
+      let conta = produto.preco * produto.qtdEstoque
+      tmp = tmp + conta
+    }
+    var NumeroItens = listaProdutos.length
+    console.log(
+      'Valor do ticket médio dos produtos da empresa é de: ' + tmp / NumeroItens
+    )
+  }
