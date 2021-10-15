@@ -1226,3 +1226,223 @@ function exercicio1(){
       'Valor do ticket médio dos produtos da empresa é de: ' + tmp / NumeroItens
     )
   }
+
+// 11- Somatória de itens por departamento (você deverá retornar um objeto contendo o nome do departamento e o total de itens nele - Novamente considere os produtos “EM ESTOQUE” - e é apenas a somatória da quantidade de itens)
+
+function exercicio11() {
+
+    var listaDeptos = [];
+    let codDepto = 0;
+
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i];
+      if(produto.departamento.idDepto != codDepto){
+        let itemLista = {
+          nomeDepto: produto.departamento.nomeDepto,
+          idDepto: produto.departamento.idDepto,
+          somatoriaItens: 0
+        }
+        listaDeptos.push(itemLista)
+        codDepto = produto.departamento.idDepto
+      }
+    }
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i]
+      for(j=0; j<listaDeptos.length; j++){
+        if(produto.departamento.idDepto == listaDeptos[j].idDepto){
+          listaDeptos[j].somatoriaItens+=produto.qtdEstoque 
+          break
+        }
+      }
+    }
+  
+    console.log(listaDeptos)
+}
+
+// 12- Valor total do inventário por departamento (similar ao item anterior - considere TODOS os produtos)
+
+function exercicio12() {
+
+    var listaDeptos = [];
+    let codDepto = 0;
+
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i];
+      if(produto.departamento.idDepto != codDepto){
+        let itemLista = {
+          nomeDepto: produto.departamento.nomeDepto,
+          idDepto: produto.departamento.idDepto,
+          somatoriaItens: 0
+        }
+        listaDeptos.push(itemLista)
+        codDepto12 = produto.departamento.idDepto
+      }
+    }
+  
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i]
+      for(x=0; x<listaDeptos.length; x++){
+        if(produto.departamento.idDepto == listaDeptos[x].idDepto){
+          listaDeptos[x].somatoriaItens+=(produto.qtdEstoque*produto.preco)
+          break
+        }
+      }
+    }
+  
+    console.log(listaDeptos)
+
+
+
+}
+
+
+// 13- Ticket médio por departamento (similar ao item anterior, porém retornando uma lista de objetos que contenha o nome do departamento e o seu ticket médio). Este é um exercícios difícil, porém é descomplicado de ser realizado tendo claro as demais saídas até então. Verifique a possibilidade de reutilizar parte da programação ou sua lógica trabalhada.
+
+function exercicio13() {
+
+    var listaDeptos12 = [];
+    let codDepto12 = 0;
+
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i];
+      if(produto.departamento.idDepto != codDepto12){
+        let itemLista12 = {
+          nomeDepto: produto.departamento.nomeDepto,
+          idDepto: produto.departamento.idDepto,
+          somatoriaItens: 0
+        }
+        listaDeptos12.push(itemLista12)
+        codDepto12 = produto.departamento.idDepto
+      }
+    }
+  for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i]
+      for(y=0; y<listaDeptos12.length; y++){
+        if(produto.departamento.idDepto == listaDeptos12[y].idDepto){
+          listaDeptos12[y].somatoriaItens+=(produto.qtdEstoque*produto.preco)
+          break
+        }
+      }
+    }
+  
+    // console.log(listaDeptos12)
+
+    var listaDeptos13 = [];
+    let codDepto13 = 0;
+
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i];
+      if(produto.departamento.idDepto != codDepto13){
+        let itemLista13 = {
+          nomeDepto: produto.departamento.nomeDepto,
+          idDepto: produto.departamento.idDepto,
+          somatoriaItens: 0
+        }
+        listaDeptos13.push(itemLista13)
+        codDepto13 = produto.departamento.idDepto
+      }
+    }
+    for(i=0; i<listaProdutos.length; i++){
+      let produto = listaProdutos[i]
+      for(x=0; x<listaDeptos12.length; x++){
+        if(produto.departamento.idDepto == listaDeptos13[x].idDepto){
+          listaDeptos13[x].somatoriaItens+=(produto.qtdEstoque*produto.preco)
+          break
+        }
+      }
+    }
+  
+    console.log(listaDeptos13)
+}
+
+// 14- Departamento mais valioso (qual o departamento que tem a maior somatória dos valores dos itens - Considere todos os departamentos)
+
+function exercicio14() {
+
+var listaDeptos = [];
+let codDepto = 0;
+var listaDeptosteste = []
+
+for(i=0; i<listaProdutos.length; i++){
+  let produto = listaProdutos[i];
+  if(produto.departamento.idDepto != codDepto){
+    let itemLista = {
+      nomeDepto: produto.departamento.nomeDepto,
+      idDepto: produto.departamento.idDepto,
+      somatoriaItens: 0
+    }
+    listaDeptos.push(itemLista)
+    codDepto = produto.departamento.idDepto
+  }
+}
+for(i=0; i<listaProdutos.length; i++){
+  let produto = listaProdutos[i]
+  
+  for(y=0; y<listaDeptos.length; y++){
+    if(produto.departamento.idDepto==listaDeptos[y].idDepto){
+      listaDeptos[y].somatoriaItens+=(produto.preco*produto.qtdEstoque)
+      break
+      }
+  }
+} 
+listaDeptos.map(idDeptoT=>{
+  if(idDeptoT.idDepto!=0)
+listaDeptosteste.push(idDeptoT.somatoriaItens)
+})
+let teste2 = listaDeptosteste.reduce(function(x,y){
+  return Math.max(x,y)
+})
+
+console.log(`Departamento mais valioso: ${listaDeptos[listaDeptosteste.indexOf(teste2)].nomeDepto}`)
+
+}
+
+// 15 -Departamento menos valioso (similar ao anterior)
+
+
+function exercicio15() {
+
+    
+    var listaDeptos = [];
+    let codDepto = 0;
+    var listaDeptosX= []
+
+    for(i=0; i<listaProdutos.length; i++){
+
+      let produto = listaProdutos[i];
+
+      if(produto.departamento.idDepto != codDepto){
+        let itemLista = {
+          nomeDepto: produto.departamento.nomeDepto,
+          idDepto: produto.departamento.idDepto,
+          somatoriaItens: 0
+        }
+        listaDeptos.push(itemLista)
+        codDepto = produto.departamento.idDepto
+      }
+    }
+    for(i=0; i<listaProdutos.length; i++){
+
+      let produto = listaProdutos[i]
+      
+      for(y=0; y<listaDeptos.length; y++){
+        if(produto.departamento.idDepto==listaDeptos[y].idDepto){
+          listaDeptos[y].somatoriaItens+=(produto.preco*produto.qtdEstoque)
+          break
+        }
+      }
+    } 
+    listaDeptos.map(idDeptoT=>{
+      if(idDeptoT.idDepto!=0){
+        listaDeptosX.push(idDeptoT.somatoriaItens)
+      }
+    })
+    let calc = listaDeptosX.reduce(function(x,y){
+      return Math.min(x,y)
+    })
+
+
+
+    console.log(`Departamento mais valioso: ${listaDeptos[listaDeptosX.indexOf(calc)].nomeDepto}`)
+
+}
